@@ -1,0 +1,36 @@
+.nav-item{
+    a{
+        text-align: center;
+    }
+
+    a:hover{
+        p{
+            color: white !important;
+        }
+    }
+
+    div{
+        margin-left: 20px;
+
+        p{
+            color: white;
+        }
+    }
+
+    .btn{
+        margin-top: 1px;
+        margin-bottom: 1px;
+    }
+
+    .dropdown{
+        margin-right: 40px;
+        
+        .dropdown-menu{
+            width: 20%;
+        }
+
+        p{
+            color: white;
+        }
+    }
+}
