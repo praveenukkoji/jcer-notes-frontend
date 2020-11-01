@@ -5,6 +5,7 @@ import { AddDocumentComponent } from './components/add-document/add-document.com
 import { AddSubjectComponent } from './components/add-subject/add-subject.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { HomeComponent } from './components/home/home.component';
+import { ListDocumentComponent } from './components/list-document/list-document.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: "sign-in", component: SignInComponent},
   { path: "sign-up", component: SignUpComponent},
   { path: "profile", component: ProfileComponent},
-  { path: "edit-profile", component: EditProfileComponent}
+  { path: "edit-profile", component: EditProfileComponent},
+  { path: "home/list-document", component: ListDocumentComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceService } from '../../service/service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -7,9 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private service: ServiceService
+    ) { }
 
   ngOnInit() {
+    if(!Boolean(sessionStorage.getItem("faculty_id"))){
+      this.router.navigate(['sign-in']);
+    }
+
+    var faculty_id = sessionStorage.getItem("faculty_id");
+    this.service.getFaculty(faculty_id).subscribe(
+      response => {
+        (<HTMLInputElement>document.getElementById("full_name")).value = response["payload"][0]["name"];
+        (<HTMLInputElement>document.getElementById("email")).value = response["payload"][0]["email"];
+        (<HTMLInputElement>document.getElementById("branch_name")).value = response["payload"][0]["branch_name"];
+      }
+    );
   }
 
 }

@@ -1,37 +1,55 @@
 <div class=container>
     <form class="form">
+        <p *ngIf="message">{{ message }}</p>
         <div class="form-row align-items-center">
           <div class="col-sm-6 my-1">
                 <label class="sr-only" for="inlineFormInputName">Name</label>
-                <input type="text" class="form-control" id="inlineFormInputName" placeholder="Branch Name">
+                <input type="text" class="form-control" id="branch_name" placeholder="Branch Name">
           </div>
           <div class="col-auto my-1">
-                <button type="submit" class="btn btn-primary">Add Branch</button>
+                <span class="btn btn-primary" (click)="addBranch()">Add Branch</span>
           </div>
         </div>
     </form>
 
-    <div class="form">
+    <div class="form1">
         <p class="title">Branch List :</p>
 
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Computer Science
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Mechanical
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Electronics and Communication
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Civil
-                <span class="btn btn-danger">Delete</span>
-            </li>
-          </ul>
-
+        <ul class="list-group" *ngIf="branchList; else elseBlock">
+            <div *ngFor="let branch of branchList">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ branch.branch_name }}
+                    <span class="btn btn-danger" (click)=setid(branch.branch_id) data-toggle="modal" data-target="#staticBackdrop">Delete</span>
+                </li>
+            </div>
+        </ul>
+        <ng-template #elseBlock>No branches available.</ng-template>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Delete Branch</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete ?
+          <ul>
+                <li>All faculty related to this branch will be deleted.</li>
+                <li>All subject related to this branch will be deleted.</li>
+                <li>All document related to this branch will be deleted.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="deleteBranch()" data-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,8 +1,8 @@
 <!-- nav-bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <a class="navbar-brand">
+    <a class="navbar">
         <img src="./assets/images/logo.svg" class="inline" height="40" width="40">
-        <p style="margin-left: 20px; color: white;" class="inline" routerLink="home">{{ title }}</p>
+        <p style="margin-left: 20px; color: white;" class="title inline" routerLink="home">{{ title }}</p>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -21,27 +21,57 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="add-document"><p>Add Document</p></a>
             </li>
-            <li class="nav-item ">
-                <div class="nav-link btn btn-success" routerLink="sign-in"><p>SIGN IN</p></div>
-            </li>
-            <li class="nav-item p-0.5">
-                <div class="nav-link btn btn-success" routerLink="sign-up"><p>SIGN UP</p></div>
-            </li>
-            <li class="nav-item">
-                <img src="./assets/images/profile_pic.svg" class="inline" height="40" width="40">
-                
-                <div class="dropdown inline">
-                    <p class="dropdown-toggle nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {{ faculty_name }}
-                    </p>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" routerLink="profile">Profile</a>
-                        <a class="dropdown-item" routerLink="edit-profile">Edit Profile</a>
-                        <a class="dropdown-item">Log Out</a>
+            <span *ngIf="LoggedIn; else elseBlock">
+                <li class="nav-item">
+                    <div class="dropdown inline">
+                        <p class="dropdown-toggle nav-link" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          {{ faculty_name }}
+                        </p>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" routerLink="profile">Profile</a>
+                            <a class="dropdown-item" routerLink="edit-profile">Edit Profile</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Delete Account</a>
+                            <a class="dropdown-item" (click)="logout()">Log Out</a>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            </span>
+            <ng-template #elseBlock>
+                <li class="nav-item">
+                    <div class="nav-link btn btn-success" routerLink="sign-in"><p>SIGN IN</p></div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link btn btn-success" routerLink="sign-up"><p>SIGN UP</p></div>
+                </li>
+            </ng-template>
         </ul>
     </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you Sure you want to delete account ?
+          <ul>
+              <li>Subject you created will be deleted.</li>
+              <li>Document you created will be deleted.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="delacc()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 <router-outlet></router-outlet>

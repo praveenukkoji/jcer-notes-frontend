@@ -11,6 +11,8 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ListDocumentComponent } from './components/list-document/list-document.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,13 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
     SignInComponent,
     SignUpComponent,
     ProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ListDocumentComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,62 +1,97 @@
 <div class="container">
     <form>
+        <p *ngIf="message" class="message">{{ message }}</p>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Subject Name</label>
-                <input type="email" class="form-control" id="inputEmail4">
+                <input type="text" class="form-control" id="subject_name">
             </div>
             <div class="form-group col-md-6">
                 <label for="inputPassword4">Subject Code</label>
-                <input type="password" class="form-control" id="inputPassword4">
+                <input type="text" class="form-control" id="subject_code">
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="inputCity">Branch</label>
-                <select id="inputState1" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                <select id="branch" class="form-control">
+                    <option *ngFor="let branch of branchList">{{ branch.branch_name }}</option>
                 </select>
             </div>
             <div class="form-group col-md-4">
                 <label for="inputState">Year</label>
-                <select id="inputState2" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                <select id="year" class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
                 </select>
             </div>
             <div class="form-group col-md-4">
                 <label for="inputZip">Semester</label>
-                <select id="inputState3" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
+                <select id="sem" class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
                 </select>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Add Subject</button>
+        <span class="btn btn-primary" (click)="addSubject()">Add Subject</span>
     </form>
 
     <div class="form">
         <p class="title">Subject List :</p>
+    </div>
 
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Computer Science
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Mechanical
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Electronics and Communication
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Civil
-                <span class="btn btn-danger">Delete</span>
-            </li>
-          </ul>
-
+    <div class="table">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Subject Name</th>
+                    <th scope="col">Subject Code</th>
+                    <th scope="col">Semester</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let subject of subjectList">
+                <tr>
+                    <td>{{ subject.subject_name }}</td>
+                    <td>{{ subject.subject_code }}</td>
+                    <td>{{ subject.sem }}</td>
+                    <td>{{ subject.year }}</td>
+                    <td><button class="btn btn-danger" (click)="setid(subject.subject_id)" data-toggle="modal" data-target="#staticBackdrop">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Delete Subject</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete ?
+          <ul>
+                <li>All document related to this subject will be deleted.</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="deleteSubject()" data-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -3,15 +3,25 @@
     margin-bottom: 40px;
 }
 
+form{
+    .message{
+        text-align: center;
+        color: red;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+}
+
 .form{
     margin-top: 40px;
     margin-bottom: 40px;
 
     .title{
         margin-bottom: 40px;
-    }
+    } 
+}
 
-    p{
-        width: fit-content;
-    }
+.table{
+    overflow-x: scroll;
+    max-height: 460px;
 }
