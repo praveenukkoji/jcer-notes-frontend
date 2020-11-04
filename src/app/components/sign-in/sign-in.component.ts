@@ -18,6 +18,10 @@ export class SignInComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // logged or not
+    if(Boolean(sessionStorage.getItem("faculty_id"))){
+      this.router.navigate(['home']);
+    }
   }
 
   // sign in 

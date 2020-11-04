@@ -18,19 +18,27 @@ export class SignUpComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.service.getBranches().subscribe(
+    // logged or not
+    if(Boolean(sessionStorage.getItem("faculty_id"))){
+      this.router.navigate(['home']);
+    }
+
+    // get branch service call
+    this.service.getBranch().subscribe(
       response => {
         this.branchList = response["payload"];
       }
     );
   }
 
+  // sign up
   signup(){
     var full_name = (<HTMLInputElement>document.getElementById("full_name")).value;
     var email = (<HTMLInputElement>document.getElementById("email")).value;
     var password = (<HTMLInputElement>document.getElementById("password")).value;
     var branch = (<HTMLInputElement>document.getElementById("branch")).value;
 
+    // validation
     if(full_name.length == 0){
       this.message = "Full Name is required"
       return 0;
@@ -63,6 +71,7 @@ export class SignUpComponent implements OnInit {
 
     this.message = '';
 
+    // create faculty service call
     this.service.createFaculty(full_name, email, password, branch_id).subscribe(
       response => {
         if(response["payload"][0]["message"] == "Faculty added successfully."){
