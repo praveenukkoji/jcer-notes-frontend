@@ -9,6 +9,7 @@ import { ServiceService } from '../../service/service.service';
 })
 export class SignInComponent implements OnInit {
 
+  // variable
   message: string = "";
 
   constructor(
@@ -19,10 +20,12 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
   }
 
+  // sign in 
   signin(){
     var email = (<HTMLInputElement>document.getElementById("email")).value;
     var password = (<HTMLInputElement>document.getElementById("password")).value;
 
+    // validation
     if(email.length == 0){
       this.message = "Email is required"
       return 0;
@@ -33,10 +36,14 @@ export class SignInComponent implements OnInit {
       return 0;
     }
 
+    this.message = '';
+
+    // login faculty service call
     this.service.facultyLogin(email, password).subscribe(
       response => {
-        this.message = '';
         if(response["payload"]){
+
+          // set faculty_id in session
           sessionStorage.setItem("faculty_id", response["payload"][0]["faculty_id"]);
           this.router.navigate(['home'])
             .then(() => {
