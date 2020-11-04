@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ServiceService } from '../../service/service.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +9,25 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  LoggedIn = Boolean(sessionStorage.getItem("faculty_id"));
+  // variable
+  branchList: any = [];
 
   constructor(
-    private router: Router
+    private router: Router,
+    private service: ServiceService
   ) { }
 
   ngOnInit() {
+    // get branch service call
+    this.service.getBranch().subscribe(
+      response => {
+        this.branchList = response["payload"];
+      }
+    );
   }
 
+  // change branch
+  changeBranch(id){
+    sessionStorage.setItem("branch_id", id);
+  }
 }

@@ -1,43 +1,11 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-md-2">
-        <div class="col mb-4">
+        <div class="col mb-4" *ngFor="let branch of branchList">
             <div class="card">
-                <img src="../../../assets/images/cs_dept.png" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Computer Science</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div class="card-body" style="text-align: center;">
+                    <h5 class="card-title">{{ branch.branch_name }}</h5>
                 </div>
-                <button *ngIf="LoggedIn" routerLink="list-document" class="btn btn-primary stretched-link">Fetch Document</button>
-            </div>
-        </div>
-        <div class="col mb-4">
-            <div class="card">
-                <img src="../../../assets/images/me_dept.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Mechanical</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <button *ngIf="LoggedIn" routerLink="list-document" class="btn btn-primary stretched-link">Fetch Document</button>
-            </div>
-        </div>
-        <div class="col mb-4">
-            <div class="card">
-                <img src="../../../assets/images/enc_dept.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Electronics and Communication</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-                </div>
-                <button *ngIf="LoggedIn" routerLink="list-document" class="btn btn-primary stretched-link">Fetch Document</button>
-            </div>
-        </div>
-        <div class="col mb-4">
-            <div class="card">
-                <img src="../../../assets/images/cv_dept.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Civil</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-                <button *ngIf="LoggedIn" routerLink="list-document" class="btn btn-primary stretched-link">Fetch Document</button>
+                <button routerLink="list-document" class="btn btn-primary stretched-link" (click)="changeBranch(branch.branch_id)">Fetch Document</button>
             </div>
         </div>
       </div>
