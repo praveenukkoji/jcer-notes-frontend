@@ -15,11 +15,14 @@ export class ProfileComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    // logged or not
     if(!Boolean(sessionStorage.getItem("faculty_id"))){
       this.router.navigate(['sign-in']);
     }
 
     var faculty_id = sessionStorage.getItem("faculty_id");
+
+    // get faculty service call
     this.service.getFaculty(faculty_id).subscribe(
       response => {
         (<HTMLInputElement>document.getElementById("full_name")).value = response["payload"][0]["name"];
@@ -28,5 +31,4 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-
 }
