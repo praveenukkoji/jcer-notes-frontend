@@ -9,6 +9,7 @@ import { ServiceService } from '../../service/service.service';
 })
 export class AddSubjectComponent implements OnInit {
   
+  // variables
   subjectList: any = [];
   branchList: any = [];
   message: string = "";
@@ -20,16 +21,19 @@ export class AddSubjectComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // logged or not
     if(!Boolean(sessionStorage.getItem("faculty_id"))){
       this.router.navigate(['sign-in']);
     }
 
-    this.service.getBranches().subscribe(
+    // get all branch service call
+    this.service.getBranch().subscribe(
       response => {
         this.branchList = response["payload"];
       }
     );
 
+    // get all subject service call
     this.service.getSubjects().subscribe(
       response => {
         this.subjectList = response["payload"];
@@ -37,6 +41,7 @@ export class AddSubjectComponent implements OnInit {
     );
   }
 
+  // add subject
   addSubject(){
     var subject_name = (<HTMLInputElement>document.getElementById("subject_name")).value;
     var subject_code = (<HTMLInputElement>document.getElementById("subject_code")).value;
@@ -49,6 +54,7 @@ export class AddSubjectComponent implements OnInit {
         var branch_id = this.branchList[i]["branch_id"] ;
     }
 
+    // validation
     if(subject_name.length == 0){
       this.message = "Subject name required."
       return 0;
@@ -61,31 +67,39 @@ export class AddSubjectComponent implements OnInit {
 
     this.message = "";
 
-    this.service.addSubjects(subject_name, subject_code, branch_id, year, sem).subscribe(
+    // create subject service call
+    this.service.createSubjects(subject_name, subject_code, branch_id, year, sem).subscribe(
       response => {
         alert(response["payload"][0]["message"]);
         
+        // get all subject service call
         this.service.getSubjects().subscribe(
           response => {
             this.subjectList = response["payload"];
           }
         );
+
       }
     );
   }
 
+  // set id
   setid(id){
     this.id = id;
   }
 
+  // delete subject
   deleteSubject(){
+
+    // delete subject service call
     this.service.deleteSubjects(this.id).subscribe();
     alert("Deleted Successfully");
+
+    // get all subject service call
     this.service.getSubjects().subscribe(
       response => {
         this.subjectList = response["payload"];
       }
     );
   }
-
 }

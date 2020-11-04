@@ -48,27 +48,29 @@
         <p class="title">Subject List :</p>
     </div>
 
-    <div class="table">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Subject Name</th>
-                    <th scope="col">Subject Code</th>
-                    <th scope="col">Semester</th>
-                    <th scope="col">Year</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let subject of subjectList">
-                <tr>
-                    <td>{{ subject.subject_name }}</td>
-                    <td>{{ subject.subject_code }}</td>
-                    <td>{{ subject.sem }}</td>
-                    <td>{{ subject.year }}</td>
-                    <td><button class="btn btn-danger" (click)="setid(subject.subject_id)" data-toggle="modal" data-target="#staticBackdrop">Delete</button></td>
-                </tr>
-            </tbody>
-        </table>
+    <div *ngIf="subjectList">
+        <div class="table">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Subject Name</th>
+                        <th scope="col">Subject Code</th>
+                        <th scope="col">Semester</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let subject of subjectList">
+                    <tr>
+                        <td>{{ subject.subject_name }}</td>
+                        <td>{{ subject.subject_code }}</td>
+                        <td>{{ subject.sem }}</td>
+                        <td>{{ subject.year }}</td>
+                        <td><button class="btn btn-danger" (click)="setid(subject.subject_id)" data-toggle="modal" data-target="#staticBackdrop">Delete</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
