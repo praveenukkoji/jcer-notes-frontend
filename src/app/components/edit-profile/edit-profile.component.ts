@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class EditProfileComponent implements OnInit {
 
+  // variables
   branchList: any = [];
   message: string = '';
 
@@ -18,17 +19,21 @@ export class EditProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // logged or not
     if(!Boolean(sessionStorage.getItem("faculty_id"))){
       this.router.navigate(['sign-in']);
     }
 
-    this.service.getBranches().subscribe(
+    // get branches service call
+    this.service.getBranch().subscribe(
       response => {
         this.branchList = response["payload"];
       }
     );
 
     var faculty_id = sessionStorage.getItem("faculty_id");
+
+    // get faculty service call
     this.service.getFaculty(faculty_id).subscribe(
       response => {
         (<HTMLInputElement>document.getElementById("full_name")).value = response["payload"][0]["name"];
@@ -38,12 +43,14 @@ export class EditProfileComponent implements OnInit {
     );
   }
 
+  // save changes
   saveChanges(){
     var full_name = (<HTMLInputElement>document.getElementById("full_name")).value;
     var email = (<HTMLInputElement>document.getElementById("email")).value;
     var password = (<HTMLInputElement>document.getElementById("password")).value;
     var branch = (<HTMLInputElement>document.getElementById("branch_name")).value;
 
+    // validation
     if(full_name.length == 0){
       this.message = "Full Name is required"
       return 0;
@@ -71,12 +78,16 @@ export class EditProfileComponent implements OnInit {
 
     this.message = '';
 
+    // with password
     if(password.length){
       var faculty_id = sessionStorage.getItem("faculty_id");
+
+      // update faculty service call
       this.service.updateFaculty(faculty_id, full_name, email, password, branch_id).subscribe(
         response => {
           alert(response["payload"][0]["message"]);
 
+          // get faculty service call
           this.service.getFaculty(faculty_id).subscribe(
             response => {
               (<HTMLInputElement>document.getElementById("full_name")).value = response["payload"][0]["name"];
@@ -87,12 +98,16 @@ export class EditProfileComponent implements OnInit {
         }
       );
     }
+    // without password
     else{
       var faculty_id = sessionStorage.getItem("faculty_id");
+
+      // update faculty service call
       this.service.updateFaculty1(faculty_id, full_name, email, branch_id).subscribe(
         response => {
           alert(response["payload"][0]["message"]);
 
+          // get faculty service call
           this.service.getFaculty(faculty_id).subscribe(
             response => {
               (<HTMLInputElement>document.getElementById("full_name")).value = response["payload"][0]["name"];
@@ -103,7 +118,5 @@ export class EditProfileComponent implements OnInit {
         }
       );
     }
-
   }
-
 }
