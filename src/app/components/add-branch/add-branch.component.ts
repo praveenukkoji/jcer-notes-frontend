@@ -9,9 +9,10 @@ import { ServiceService } from '../../service/service.service';
 })
 export class AddBranchComponent implements OnInit {
 
+  // variables
   branchList: any = [];
   message: string = "";
-  id: string = '';
+  id: string = "";
 
   constructor(
     private router: Router,
@@ -19,26 +20,32 @@ export class AddBranchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // logged or not
     if(!Boolean(sessionStorage.getItem("faculty_id"))){
       this.router.navigate(['sign-in']);
     }
 
-    this.service.getBranches().subscribe(
+    // get all branch service call
+    this.service.getBranch().subscribe(
       response => {
         this.branchList = response["payload"];
       }
     );
   }
 
+  // add branch
   addBranch(){
     var branch_name = (<HTMLInputElement>document.getElementById("branch_name")).value;
     if(branch_name.length > 0){
       this.message = "";
-      this.service.addBranches(branch_name).subscribe(
+
+      // create branch service call
+      this.service.createBranch(branch_name).subscribe(
         response => {
           alert(response["payload"][0]["message"]);
 
-          this.service.getBranches().subscribe(
+          // get all branch service call
+          this.service.getBranch().subscribe(
             response => {
               this.branchList = response["payload"];
             }
@@ -51,18 +58,23 @@ export class AddBranchComponent implements OnInit {
     }
   }
 
+  // set id
   setid(id){
     this.id = id;
   }
 
+  // delete branch
   deleteBranch(){
-    this.service.deleteBranches(this.id).subscribe();
+
+    // delete branch service call
+    this.service.deleteBranch(this.id).subscribe();
     alert("Deleted Successfully");
-    this.service.getBranches().subscribe(
+
+    // get all branch service call
+    this.service.getBranch().subscribe(
       response => {
         this.branchList = response["payload"];
       }
     );
   }
-
 }
