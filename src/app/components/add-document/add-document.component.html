@@ -1,9 +1,10 @@
 <div class="container">
     <form>
+        <p *ngIf="message" class="message">{{ message }}</p>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputEmail4">Document Title</label>
-                <input type="email" class="form-control" id="inputEmail4">
+                <input type="email" class="form-control" id="document_title" placeholder="Document title">
             </div>
             <div class="form-group col-md-6">
                 <label for="inputEmail4">File</label>
@@ -14,51 +15,98 @@
                     </div>
                 </div>
             </div>
-        </div><div class="form-row">
+        </div>
+        <div class="form-row">
             <div class="form-group col-md-4">
-                <label for="inputCity">Branch</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                </select>
+              <p>Branch : </p>
+              <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ branch_name }}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" *ngFor="let branch of branchList" (click)="changeBranch(branch.branch_id)">{{ branch.branch_name }}</a>
+                  </div>
+              </div>
             </div>
             <div class="form-group col-md-4">
-                <label for="inputState">Subject</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                </select>
+              <p>Subject : &nbsp;</p>
+              <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ subject_name }}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" *ngFor="let subject of subjectList" (click)="changeSubject(subject.subject_id)">{{ subject.subject_name }}</a>
+                  </div>
+              </div>
             </div>
             <div class="form-group col-md-4">
-                <label for="inputZip">Module</label>
-                <select id="inputState" class="form-control">
-                    <option selected>Choose...</option>
-                    <option>...</option>
-                </select>
+              <p>Module no : &nbsp;</p>
+              <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ module }}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="changeModule(0)">0</a>
+                    <a class="dropdown-item" (click)="changeModule(1)">1</a>
+                    <a class="dropdown-item" (click)="changeModule(2)">2</a>
+                    <a class="dropdown-item" (click)="changeModule(3)">3</a>
+                    <a class="dropdown-item" (click)="changeModule(4)">4</a>
+                    <a class="dropdown-item" (click)="changeModule(5)">5</a>
+                  </div>
+              </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Add Document</button>
+        <span class="btn btn-primary" (click)="addDocument()">Add Document</span>
     </form>
     <div class="form">
         <p class="title">Document List :</p>
-
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Computer Science
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Mechanical
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Electronics and Communication
-                <span class="btn btn-danger">Delete</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Civil
-                <span class="btn btn-danger">Delete</span>
-            </li>
-        </ul>
+    </div>
+    <div *ngIf="documentList">
+        <div class="table">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Document Title</th>
+                        <th scope="col">Subject Code</th>
+                        <th scope="col">Module</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let document of documentList">
+                    <tr>
+                        <td>{{ document.document_title }}</td>
+                        <td>{{ document.subject_code }}</td>
+                        <td>{{ document.module }}</td>
+                        <td>{{ document.year }}</td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ document.document_url }}" target="_blank">Download</a>
+                            <a class="btn btn-danger" (click)="setid(document.document_id)" data-toggle="modal" data-target="#staticBackdrop">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Delete Subject</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure you want to delete this document ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="deleteDocument()" data-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

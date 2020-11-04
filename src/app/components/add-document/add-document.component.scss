@@ -3,6 +3,16 @@
     margin-bottom: 40px;
 }
 
+form{
+
+    .message{
+        text-align: center;
+        color: red;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+}
+
 .form{
     margin-top: 40px;
     margin-bottom: 40px;
@@ -13,5 +23,25 @@
 
     p{
         width: fit-content;
+    }
+}
+
+.dropdown{
+    margin-top: 10px;
+}
+
+.table{
+
+    overflow-x: scroll;
+    overflow-y: scroll;
+
+    td{
+        
+        a{
+            margin-left: 5%;
+            margin-right: 5%;
+            margin-top: 1px;
+            margin-bottom: 1px;
+        }
     }
 }
