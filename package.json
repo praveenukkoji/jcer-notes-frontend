@@ -2,8 +2,8 @@
   "name": "jcer-notes",
   "version": "0.0.0",
   "engines": {
-    "node": "v8.11.4",
-    "npm": "5.8.0"
+    "node": "v12.13.1",
+    "npm": "6.13.6"
   },
   "scripts": {
     "ng": "ng",
