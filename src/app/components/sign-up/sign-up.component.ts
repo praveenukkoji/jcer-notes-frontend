@@ -69,6 +69,9 @@ export class SignUpComponent implements OnInit {
         var branch_id = this.branchList[i]["branch_id"] ;
     }
 
+    if(branch_id == undefined)
+      branch_id = 'null';
+
     this.message = '';
 
     // create faculty service call
