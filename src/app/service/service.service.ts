@@ -17,7 +17,7 @@ export class ServiceService {
   // get all branches for database
   getBranch(): Observable<Response>{
     // const url = "http://localhost:8000/branch/get/branches/";
-    const url = "https://jcer-notes-api.herokuapp.com//branch/get/branches/";
+    const url = "https://jcer-notes-api.herokuapp.com/branch/get/branches/";
 
     var body = {
       "branches": []
