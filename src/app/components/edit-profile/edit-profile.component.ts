@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 export class EditProfileComponent implements OnInit {
 
   // variables
-  branchList: any = [];
   message: string = '';
 
   constructor(
@@ -24,13 +23,6 @@ export class EditProfileComponent implements OnInit {
       this.router.navigate(['sign-in']);
     }
 
-    // get branches service call
-    this.service.getBranch().subscribe(
-      response => {
-        this.branchList = response["payload"];
-      }
-    );
-
     var faculty_id = sessionStorage.getItem("faculty_id");
 
     // get faculty service call
@@ -38,7 +30,6 @@ export class EditProfileComponent implements OnInit {
       response => {
         (<HTMLInputElement>document.getElementById("full_name")).value = response["payload"][0]["name"];
         (<HTMLInputElement>document.getElementById("email")).value = response["payload"][0]["email"];
-        (<HTMLSelectElement>document.getElementById("branch_name")).value = response["payload"][0]["branch_name"];
       }
     );
   }
@@ -48,7 +39,6 @@ export class EditProfileComponent implements OnInit {
     var full_name = (<HTMLInputElement>document.getElementById("full_name")).value;
     var email = (<HTMLInputElement>document.getElementById("email")).value;
     var password = (<HTMLInputElement>document.getElementById("password")).value;
-    var branch = (<HTMLInputElement>document.getElementById("branch_name")).value;
 
     // validation
     if(full_name.length == 0){
@@ -71,11 +61,6 @@ export class EditProfileComponent implements OnInit {
       return 0;
     }
 
-    for(var i=0;i<this.branchList.length;i++){
-      if(this.branchList[i]["branch_name"] == branch)
-        var branch_id = this.branchList[i]["branch_id"] ;
-    }
-
     this.message = '';
 
     // with password
@@ -83,7 +68,7 @@ export class EditProfileComponent implements OnInit {
       var faculty_id = sessionStorage.getItem("faculty_id");
 
       // update faculty service call
-      this.service.updateFaculty(faculty_id, full_name, email, password, branch_id).subscribe(
+      this.service.updateFaculty(faculty_id, full_name, email, password).subscribe(
         response => {
           alert(response["payload"][0]["message"]);
 
@@ -92,7 +77,6 @@ export class EditProfileComponent implements OnInit {
             response => {
               (<HTMLInputElement>document.getElementById("full_name")).value = response["payload"][0]["name"];
               (<HTMLInputElement>document.getElementById("email")).value = response["payload"][0]["email"];
-              (<HTMLSelectElement>document.getElementById("branch_name")).value = response["payload"][0]["branch_name"];
             }
           );
         }
@@ -103,7 +87,7 @@ export class EditProfileComponent implements OnInit {
       var faculty_id = sessionStorage.getItem("faculty_id");
 
       // update faculty service call
-      this.service.updateFaculty1(faculty_id, full_name, email, branch_id).subscribe(
+      this.service.updateFaculty1(faculty_id, full_name, email).subscribe(
         response => {
           alert(response["payload"][0]["message"]);
 
@@ -112,7 +96,6 @@ export class EditProfileComponent implements OnInit {
             response => {
               (<HTMLInputElement>document.getElementById("full_name")).value = response["payload"][0]["name"];
               (<HTMLInputElement>document.getElementById("email")).value = response["payload"][0]["email"];
-              (<HTMLSelectElement>document.getElementById("branch_name")).value = response["payload"][0]["branch_name"];
             }
           );
         }

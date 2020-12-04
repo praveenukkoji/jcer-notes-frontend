@@ -202,7 +202,7 @@ export class ServiceService {
   }
 
   // create faculty
-  createFaculty(full_name, email, password, branch_id): Observable<Response>{
+  createFaculty(full_name, email, password): Observable<Response>{
     // const url = "http://localhost:8000/user/create/faculties/";
     const url = "https://jcer-notes-api.herokuapp.com/user/create/faculties/";
 
@@ -211,8 +211,7 @@ export class ServiceService {
         {
           "name": full_name,
           "email": email,
-          "password": password,
-          "branch_id": branch_id
+          "password": password
         }
       ]
     }
@@ -227,7 +226,7 @@ export class ServiceService {
   }
 
   // update faculty with password
-  updateFaculty(faculty_id, full_name, email, password, branch_id): Observable<Response>{
+  updateFaculty(faculty_id, full_name, email, password): Observable<Response>{
     // const url = "http://localhost:8000/user/update/faculties/";
     const url = "https://jcer-notes-api.herokuapp.com/user/update/faculties/";
 
@@ -238,8 +237,7 @@ export class ServiceService {
           "update_data":{
             "name": full_name,
             "email": email,
-            "password": password,
-            "branch_id": branch_id
+            "password": password
           }
         }
       ]
@@ -255,7 +253,7 @@ export class ServiceService {
   }
 
   // update faculty without password
-  updateFaculty1(faculty_id, full_name, email, branch_id): Observable<Response>{
+  updateFaculty1(faculty_id, full_name, email): Observable<Response>{
     // const url = "http://localhost:8000/user/update/faculties/";
     const url = "https://jcer-notes-api.herokuapp.com/user/update/faculties/";
 
@@ -265,8 +263,7 @@ export class ServiceService {
           "faculty_id": faculty_id,
           "update_data":{
             "name": full_name,
-            "email": email,
-            "branch_id": branch_id
+            "email": email
           }
         }
       ]
