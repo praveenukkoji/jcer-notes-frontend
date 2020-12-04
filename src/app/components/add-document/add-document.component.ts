@@ -139,7 +139,7 @@ export class AddDocumentComponent implements OnInit {
      response => {
 
       // URL
-       var url = "http://localhost:8000/media/"+name;
+       var url = "https://jcer-notes-api.herokuapp.com/media/"+name;
 
        if(response["message"] == "Document uploaded successfully."){
         //  create document
