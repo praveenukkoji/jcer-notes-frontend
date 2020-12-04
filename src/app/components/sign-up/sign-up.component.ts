@@ -75,7 +75,7 @@ export class SignUpComponent implements OnInit {
     this.message = '';
 
     // create faculty service call
-    this.service.createFaculty(full_name, email, password, branch_id).subscribe(
+    this.service.createFaculty(full_name, email, password).subscribe(
       response => {
         if(response["payload"][0]["message"] == "Faculty added successfully."){
           this.router.navigate(['sign-in']);
