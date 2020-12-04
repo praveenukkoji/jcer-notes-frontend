@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: "add-document", component: AddDocumentComponent},
   { path: "sign-in", component: SignInComponent},
   { path: "sign-up", component: SignUpComponent},
-  { path: "profile", component: ProfileComponent},
+  // { path: "profile", component: ProfileComponent},
   { path: "edit-profile", component: EditProfileComponent},
   { path: "home/list-document", component: ListDocumentComponent}
 ];
