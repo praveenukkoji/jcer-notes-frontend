@@ -9,7 +9,7 @@ import { ServiceService } from '../../service/service.service';
 })
 export class SignUpComponent implements OnInit {
 
-  branchList: any = [];
+  // variables
   message : string = '';
 
   constructor(
@@ -22,13 +22,6 @@ export class SignUpComponent implements OnInit {
     if(Boolean(sessionStorage.getItem("faculty_id"))){
       this.router.navigate(['home']);
     }
-
-    // get branch service call
-    this.service.getBranch().subscribe(
-      response => {
-        this.branchList = response["payload"];
-      }
-    );
   }
 
   // sign up
@@ -36,7 +29,6 @@ export class SignUpComponent implements OnInit {
     var full_name = (<HTMLInputElement>document.getElementById("full_name")).value;
     var email = (<HTMLInputElement>document.getElementById("email")).value;
     var password = (<HTMLInputElement>document.getElementById("password")).value;
-    var branch = (<HTMLInputElement>document.getElementById("branch")).value;
 
     // validation
     if(full_name.length == 0){
@@ -63,14 +55,6 @@ export class SignUpComponent implements OnInit {
       this.message = "Password sholud be minimun 8 character"
       return 0;
     }
-
-    for(var i=0;i<this.branchList.length;i++){
-      if(this.branchList[i]["branch_name"] == branch)
-        var branch_id = this.branchList[i]["branch_id"] ;
-    }
-
-    if(branch_id == undefined)
-      branch_id = 'null';
 
     this.message = '';
 
